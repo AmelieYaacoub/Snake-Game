@@ -1,5 +1,3 @@
-import { builtinModules } from "module";
-
 //Setup
 
 var mycanvas = document.getElementById('mycanvas');
@@ -106,4 +104,42 @@ var movement = function () {
         gameloop = clearInterval(gameloop);
         return;
     }
+
+
+    if(snakeX == food.x && snakeY == food.y) {
+        var tail = {x: snakeX, y: snakeY}
+    };
+    goal++;
+
+    createFood();
+} else {
+
+    var tail = snake.pop();
+    tail.x = snakeX;
+    tail.y = snakeY;
 }
+
+snake.unshift(tail);
+
+for(var i=0; i<snake.length; i++) {
+    snakeBody(snake[i].x, snake[i].y);
+}
+
+food(food.x, food.y);
+
+scoreText();
+
+
+var init = function() {
+    direction = 'down';
+    drawSnake();
+    createFood();
+    gameloop = setInterval(paint, 80);
+}
+
+
+return {
+    init: init
+};
+
+}());
