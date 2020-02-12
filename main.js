@@ -1,3 +1,5 @@
+import { builtinModules } from "module";
+
 //Setup
 
 var mycanvas = document.getElementById('mycanvas');
@@ -74,3 +76,34 @@ var snakeEatHimself = function (x, y, array) {
 
 
 //Movement
+
+var movement = function () {
+    context.fillStyle = 'lightgrey';
+    context.fillRect(0, 0, w, h);
+    context.strokeStyle = "black";
+    context.strokeRect(0, 0, w, h);
+
+    btn.setAttribute("disabled", true);
+
+    var snakeX = snake[0].x;
+    var snakeY = snake[0].y;
+
+    if (direction == 'right') {
+        snakeX++;
+    } else if (direction == 'left') {
+        snakeX--;
+    } else if (direction == 'up') {
+        snakeY++;
+    } else if (direction == 'down') {
+        snakeY--;
+    }
+
+
+    if (snakeX == -1 || snakeX == w / snakeSize || snakeY == -1 || snakeY == h / snakeSize || snakeEatHimself(snakeX, snakeY, snake)) {
+        btn.setAttribute('disabled', true);
+
+        context.clearRect(0, 0, w, h);
+        gameloop = clearInterval(gameloop);
+        return;
+    }
+}
